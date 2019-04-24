@@ -9,7 +9,7 @@ namespace ClinkedIn2.Data
 {
     public class UserRepository
     {
-        const string ConnectionString = "Server = localhost; Database = SwordAndFather; Trusted_Connection = True;";
+        const string ConnectionString = "Server = localhost; Database = ClinkedIn; Trusted_Connection = True;";
 
         public User AddUser(string name, DateTime releaseDate, int age, bool isPrisoner)
         {
