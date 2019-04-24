@@ -11,7 +11,7 @@ namespace ClinkedIn2.Data
     {
         const string ConnectionString = "Server = localhost; Database = SwordAndFather; Trusted_Connection = True;";
 
-        public User AddUser(string username, DateTime releaseDate, int age, bool isPrisoner)
+        public User AddUser(string name, DateTime releaseDate, int age, bool isPrisoner)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -19,11 +19,11 @@ namespace ClinkedIn2.Data
                 var insertUserCommand = connection.CreateCommand();
                 insertUserCommand.CommandText = $@"Insert into users (name, releaseDate, age, isPrisoner)
                                               Output inserted.*
-                                              Values(@username, @releaseDate, @age, @isPrisoner)";
+                                              Values(@name, @releaseDate, @age, @isPrisoner)";
 
                 insertUserCommand.Parameters.AddWithValue("name", name);
                 insertUserCommand.Parameters.AddWithValue("releasedate", releaseDate);
-                insertUserCommand.Parameters.AddWithValue("age", isPrisoner);
+                insertUserCommand.Parameters.AddWithValue("age", age);
                 insertUserCommand.Parameters.AddWithValue("isPrisoner", isPrisoner);
 
 
