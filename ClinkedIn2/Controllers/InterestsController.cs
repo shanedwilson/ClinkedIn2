@@ -23,7 +23,7 @@ namespace ClinkedIn2.Controllers
         }
 
         [HttpPost()]
-        public ActionResult AddUser(CreateInterestRequest createRequest)
+        public ActionResult AddInterest(CreateInterestRequest createRequest)
         {
             if (!_validator.Validate(createRequest))
             {

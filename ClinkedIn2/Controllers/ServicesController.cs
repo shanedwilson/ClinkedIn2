@@ -24,7 +24,7 @@ namespace ClinkedIn2.Controllers
         }
 
         [HttpPost()]
-        public ActionResult AddUser(CreateServiceRequest createRequest)
+        public ActionResult AddService(CreateServiceRequest createRequest)
         {
             if (!_validator.Validate(createRequest))
             {
