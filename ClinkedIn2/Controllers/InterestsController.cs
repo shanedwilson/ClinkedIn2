@@ -32,7 +32,7 @@ namespace ClinkedIn2.Controllers
 
             var newInterest = _interestRepository.AddInterest(createRequest.Name);
 
-            return Created($"api/users/{newInterest.Id}", newInterest);
+            return Created($"api/interests/{newInterest.Id}", newInterest);
         }
 
         [HttpGet]
