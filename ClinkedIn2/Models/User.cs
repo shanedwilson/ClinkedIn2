@@ -12,6 +12,7 @@ namespace ClinkedIn2.Models
         public DateTime ReleaseDate { get; set; }
         public int Age { get; set; }
         public bool IsPrisoner { get; set; }
+        public string Interest { get; set; }
 
         public User(string name, DateTime releaseDate, int age, bool isPrisoner)
         {
@@ -19,6 +20,15 @@ namespace ClinkedIn2.Models
             ReleaseDate = releaseDate;
             Age = age;
             IsPrisoner = isPrisoner;
+        }
+
+        public User(string name, DateTime releaseDate, int age, bool isPrisoner, string interest)
+        {
+            Name = name;
+            ReleaseDate = releaseDate;
+            Age = age;
+            IsPrisoner = isPrisoner;
+            Interest = interest;
         }
     }
 }
