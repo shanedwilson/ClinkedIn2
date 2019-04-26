@@ -78,5 +78,42 @@ namespace ClinkedIn2.Data
 
             return users;
         }
+
+        public List<User> GetUserWithInterests()
+        {
+            var userWithInterests = new List<User>();
+
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var getUserWithInterestsCommand = connection.CreateCommand();
+            getUserWithInterestsCommand.CommandText = @"Select u.*, I.Name InterestName
+                                                        From Users u
+                                                        Join UserInterests ui
+                                                        On u.Id = ui.UserId
+                                                        Join Interests i
+                                                        On i.Id = ui.InterestId
+                                                        Order by u.Id";
+
+            var reader = getUserWithInterestsCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var id = (int)reader["Id"];
+                var name = reader["Name"].ToString();
+                var releaseDate = (DateTime)reader["ReleaseDate"];
+                var age = (int)reader["Age"];
+                var isPrisoner = (bool)reader["IsPrisoner"];
+                var interest = reader["InterestName"].ToString();
+
+                var user = new User(name, releaseDate, age, isPrisoner, interest) { Id = id };
+
+                userWithInterests.Add(user);
+            }
+
+            connection.Close();
+
+            return userWithInterests;
+        }
     }
 }
