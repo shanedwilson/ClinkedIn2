@@ -9,6 +9,8 @@ namespace ClinkedIn2.Data
 {
     public class UserRepository
     {
+        List<User> users = new List<User>();
+
         const string ConnectionString = "Server = localhost; Database = ClinkedIn; Trusted_Connection = True;";
 
         public User AddUser(string name, DateTime releaseDate, int age, bool isPrisoner)
@@ -50,8 +52,6 @@ namespace ClinkedIn2.Data
 
         public List<User> GetAll()
         {
-            var users = new List<User>();
-
             var connection = new SqlConnection(ConnectionString);
             connection.Open();
 
@@ -87,6 +87,53 @@ namespace ClinkedIn2.Data
             }
 
             return users;
+        }
+
+        public void DeleteUser(int userId)
+        {
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var deleteUserCommand = connection.CreateCommand();
+            deleteUserCommand.Parameters.AddWithValue("UId", userId);
+            deleteUserCommand.CommandText = @"Delete
+                                                From Users
+                                                Where Id = @UId";
+
+            deleteUserCommand.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public bool UpdateUser(int id, string name, DateTime releaseDate, int age, bool isPrisoner)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var updateUserCommand = connection.CreateCommand();
+
+                updateUserCommand.Parameters.AddWithValue("@Id", id);
+
+                updateUserCommand.CommandText = $@"Update users 
+                                                    Set 
+                                                        name = @name,
+                                                        releaseDate = @releaseDate,
+                                                        age = @age,
+                                                        isPrisoner = @isPrisoner
+                                                Where Id = @Id";
+
+                updateUserCommand.Parameters.AddWithValue("name", name);
+                updateUserCommand.Parameters.AddWithValue("releasedate", releaseDate);
+                updateUserCommand.Parameters.AddWithValue("age", age);
+                updateUserCommand.Parameters.AddWithValue("isPrisoner", isPrisoner);
+
+                    var numberOfRowsUpdated = updateUserCommand.ExecuteNonQuery();
+                    if (numberOfRowsUpdated > 0)
+                    { return true; }
+                    return false;
+
+            }
+
         }
 
         List<string> GetServices(int userId)

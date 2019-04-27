@@ -30,7 +30,7 @@ namespace ClinkedIn2.Controllers
                 return BadRequest(new { error = "users must have a name" });
             }
 
-            var newUser = _userRepository.AddUser(createRequest.Name, createRequest.ReleaseDate, createRequest.Age, createRequest.IsPrisoner );
+            var newUser = _userRepository.AddUser(createRequest.Name, createRequest.ReleaseDate, createRequest.Age, createRequest.IsPrisoner);
 
             return Created($"api/users/{newUser.Id}", newUser);
         }
@@ -41,6 +41,30 @@ namespace ClinkedIn2.Controllers
             var users = _userRepository.GetAll();
 
             return Ok(users);
+        }
+
+        [HttpDelete("{userId}")]
+        public ActionResult DeleteUser(int userId)
+        {
+            _userRepository.DeleteUser(userId);
+
+            return Ok();
+        }
+
+        [HttpPut("{userId}")]
+        public ActionResult UpdateUser(int userId, UpdateUserRequest updateUserRequest)
+        {
+            if (updateUserRequest == null)
+            {
+                return BadRequest(new { error = "Please provide necessary information" });
+            }
+            var updatedUser = _userRepository.UpdateUser(
+                userId,
+                updateUserRequest.Name,
+                updateUserRequest.ReleaseDate,
+                updateUserRequest.Age,
+                updateUserRequest.IsPrisoner);
+            return Ok();
         }
     }
 }
