@@ -12,8 +12,11 @@ namespace ClinkedIn2.Models
         public DateTime ReleaseDate { get; set; }
         public int Age { get; set; }
         public bool IsPrisoner { get; set; }
-        public string Interest { get; set; }
+        //public string Interest { get; set; }
+        //public string Service { get; set; }
+        public List<string> Interests { get; set; }
         public List<string> Services { get; set; }
+
 
         public User(string name, DateTime releaseDate, int age, bool isPrisoner)
         {
@@ -23,22 +26,33 @@ namespace ClinkedIn2.Models
             IsPrisoner = isPrisoner;
         }
 
-        public User(string name, DateTime releaseDate, int age, bool isPrisoner, string interest)
-        {
-            Name = name;
-            ReleaseDate = releaseDate;
-            Age = age;
-            IsPrisoner = isPrisoner;
-            Interest = interest;
-        }
+        //public User(string name, DateTime releaseDate, int age, bool isPrisoner, string interest)
+        //{
+        //    Name = name;
+        //    ReleaseDate = releaseDate;
+        //    Age = age;
+        //    IsPrisoner = isPrisoner;
+        //    Interest = interest;
+        //}
 
-        public User(string name, DateTime releaseDate, int age, bool isPrisoner, List<string> services)
+        public User(string name, DateTime releaseDate, int age, bool isPrisoner, List<string> services, List<string> interests)
         {
             Name = name;
             ReleaseDate = releaseDate;
             Age = age;
             IsPrisoner = isPrisoner;
+            Interests = interests;
             Services = services;
         }
+
+        //public User(string name, DateTime releaseDate, int age, bool isPrisoner, string interest, string service)
+        //{
+        //    Name = name;
+        //    ReleaseDate = releaseDate;
+        //    Age = age;
+        //    IsPrisoner = isPrisoner;
+        //    Interest = interest;
+        //    Service = service;
+        //}
     }
 }

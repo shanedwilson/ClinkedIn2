@@ -43,20 +43,20 @@ namespace ClinkedIn2.Controllers
             return Ok(users);
         }
 
-        [HttpGet("interests")]
-        public ActionResult GetUserWithInterests()
-        {
-            var users = _userRepository.GetUserWithInterests();
+        //[HttpGet("interests")]
+        //public ActionResult GetUserWithInterests()
+        //{
+        //    var users = _userRepository.GetUserWithInterests();
 
-            return Ok(users);
-        }
+        //    return Ok(users);
+        //}
 
-        [HttpGet("services")]
-        public ActionResult GetUserWithServices()
-        {
-            var users = _userRepository.GetUserWithServices();
+        //[HttpGet("services")]
+        //public ActionResult GetUserWithServices()
+        //{
+        //    var users = _userRepository.GetUserWithServices();
 
-            return Ok(users);
-        }
+        //    return Ok(users);
+        //}
     }
 }
