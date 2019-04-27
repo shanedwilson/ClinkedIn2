@@ -18,5 +18,13 @@ namespace ClinkedIn2.Models
             Description = description;
             Price = price;
         }
+
+        public Service(int id, string name, string description, decimal price)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Price = price;
+        }
     }
 }
