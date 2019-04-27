@@ -15,6 +15,14 @@ namespace ClinkedIn2.Models
         public List<string> Interests { get; set; }
         public List<string> Services { get; set; }
 
+        public User(int id, string name, DateTime releaseDate, int age, bool isPrisoner)
+        {
+            Id = id;
+            Name = name;
+            ReleaseDate = releaseDate;
+            Age = age;
+            IsPrisoner = isPrisoner;
+        }
 
         public User(string name, DateTime releaseDate, int age, bool isPrisoner)
         {

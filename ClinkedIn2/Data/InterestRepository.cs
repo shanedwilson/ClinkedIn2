@@ -69,5 +69,46 @@ namespace ClinkedIn2.Data
 
             return interests;
         }
+
+        public void DeleteInterest(int interestId)
+        {
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var deleteInterestCommand = connection.CreateCommand();
+            deleteInterestCommand.Parameters.AddWithValue("Id", interestId);
+            deleteInterestCommand.CommandText = @"Delete
+                                                From Interests
+                                                Where Id = @Id";
+
+            deleteInterestCommand.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public bool UpdateInterest(int id, string name)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var updateInterestCommand = connection.CreateCommand();
+
+                updateInterestCommand.Parameters.AddWithValue("@Id", id);
+
+                updateInterestCommand.CommandText = $@"Update interests
+                                                    Set name = @name
+                                                    Where Id = @Id";
+
+                updateInterestCommand.Parameters.AddWithValue("name", name);
+
+                var numberOfRowsUpdated = updateInterestCommand.ExecuteNonQuery();
+
+                connection.Close();
+
+                if (numberOfRowsUpdated > 0)
+                { return true; }
+                return false;
+            }
+        }
     }
 }

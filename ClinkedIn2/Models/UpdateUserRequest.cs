@@ -5,20 +5,12 @@ using System.Threading.Tasks;
 
 namespace ClinkedIn2.Models
 {
-    public class Interest
+    public class UpdateUserRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public Interest (string name)
-        {
-            Name = name;
-        }
-
-        public Interest(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
+        public DateTime ReleaseDate { get; set; }
+        public int Age { get; set; }
+        public bool IsPrisoner { get; set; }
     }
 }

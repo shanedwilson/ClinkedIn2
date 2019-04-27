@@ -42,5 +42,27 @@ namespace ClinkedIn2.Controllers
 
             return Ok(interests);
         }
+
+        [HttpDelete("{userId}")]
+        public ActionResult DeleteInterest(int userId)
+        {
+            _interestRepository.DeleteInterest(userId);
+
+            return Ok();
+        }
+
+        [HttpPut("{userId}")]
+        public ActionResult UpdateInterest(int userId, UpdateInterestRequest updateInterestRequest)
+        {
+            if (updateInterestRequest == null)
+            {
+                return BadRequest(new { error = "Please provide necessary information" });
+            }
+            var updatedUser = _interestRepository.UpdateInterest(
+                userId,
+                updateInterestRequest.Name);
+
+            return Ok();
+        }
     }
 }
