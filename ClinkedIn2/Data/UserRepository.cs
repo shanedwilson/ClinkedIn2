@@ -79,9 +79,9 @@ namespace ClinkedIn2.Data
             return users;
         }
 
-        public List<User> GetUserWithInterests()
+        public List<object> GetUserWithInterests()
         {
-            var userWithInterests = new List<User>();
+            var usersWithInterests = new List<User>();
 
             var connection = new SqlConnection(ConnectionString);
             connection.Open();
@@ -108,17 +108,28 @@ namespace ClinkedIn2.Data
 
                 var user = new User(name, releaseDate, age, isPrisoner, interest) { Id = id };
 
-                userWithInterests.Add(user);
+                usersWithInterests.Add(user);
             }
 
             connection.Close();
 
-            return userWithInterests;
+            var UsersInterests = new List<object>();
+            var Services = new List<string>();
+
+            var userInterests = usersWithInterests.GroupBy(
+                               u => new { u.Id, u.Name, u.ReleaseDate, u.Age, u.IsPrisoner },
+                               u => u.Interest,
+                               (user, service) => new { User = user, Services = service.ToList() }
+                ).ToList();
+
+            UsersInterests.Add(userInterests);
+
+            return UsersInterests;
         }
 
-        public List<User> GetUserWithServices()
+        public List<object> GetUserWithServices()
         {
-            var userWithServices = new List<User>();
+            var usersWithServices = new List<User>();
 
             var connection = new SqlConnection(ConnectionString);
             connection.Open();
@@ -145,12 +156,23 @@ namespace ClinkedIn2.Data
 
                 var user = new User(name, releaseDate, age, isPrisoner, service) { Id = id };
 
-                userWithServices.Add(user);
+                usersWithServices.Add(user);
             }
 
             connection.Close();
 
-            return userWithServices;
+            var UsersServices = new List<object>();
+            var Services = new List<string>();
+
+            var userServices = usersWithServices.GroupBy(
+                               u => new { u.Id, u.Name, u.ReleaseDate, u.Age, u.IsPrisoner },
+                               u => u.Interest,
+                               (user, service) => new { User = user, Services = service.ToList() }
+                ).ToList();
+
+            UsersServices.Add(userServices);
+
+            return UsersServices;
         }
     }
 }
