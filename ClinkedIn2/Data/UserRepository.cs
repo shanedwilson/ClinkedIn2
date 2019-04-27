@@ -127,8 +127,11 @@ namespace ClinkedIn2.Data
                 updateUserCommand.Parameters.AddWithValue("age", age);
                 updateUserCommand.Parameters.AddWithValue("isPrisoner", isPrisoner);
 
-                    var numberOfRowsUpdated = updateUserCommand.ExecuteNonQuery();
-                    if (numberOfRowsUpdated > 0)
+                var numberOfRowsUpdated = updateUserCommand.ExecuteNonQuery();
+
+                connection.Close();
+
+                if (numberOfRowsUpdated > 0)
                     { return true; }
                     return false;
 

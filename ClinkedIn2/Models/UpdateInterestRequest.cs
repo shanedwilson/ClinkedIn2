@@ -5,20 +5,9 @@ using System.Threading.Tasks;
 
 namespace ClinkedIn2.Models
 {
-    public class Interest
+    public class UpdateInterestRequest
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public Interest (string name)
-        {
-            Name = name;
-        }
-
-        public Interest(int id, string name)
-        {
-            Id = id;
-            Name = name;
-        }
     }
 }

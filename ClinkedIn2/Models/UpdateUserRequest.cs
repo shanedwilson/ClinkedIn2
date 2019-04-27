@@ -12,6 +12,5 @@ namespace ClinkedIn2.Models
         public DateTime ReleaseDate { get; set; }
         public int Age { get; set; }
         public bool IsPrisoner { get; set; }
-
     }
 }
