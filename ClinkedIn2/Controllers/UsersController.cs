@@ -50,5 +50,13 @@ namespace ClinkedIn2.Controllers
 
             return Ok(users);
         }
+
+        [HttpGet("services")]
+        public ActionResult GetUserWithServices()
+        {
+            var users = _userRepository.GetUserWithServices();
+
+            return Ok(users);
+        }
     }
 }
