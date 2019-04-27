@@ -115,5 +115,42 @@ namespace ClinkedIn2.Data
 
             return userWithInterests;
         }
+
+        public List<User> GetUserWithServices()
+        {
+            var userWithServices = new List<User>();
+
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var getUserWithServicesCommand = connection.CreateCommand();
+            getUserWithServicesCommand.CommandText = @"Select u.*, s.Name ServiceName
+                                                        From Users u
+                                                        Join UserServices us
+                                                        On u.Id = us.UserId
+                                                        Join Services s
+                                                        On s.Id = us.ServiceId
+                                                        Order by u.Id";
+
+            var reader = getUserWithServicesCommand.ExecuteReader();
+
+            while (reader.Read())
+            {
+                var id = (int)reader["Id"];
+                var name = reader["Name"].ToString();
+                var releaseDate = (DateTime)reader["ReleaseDate"];
+                var age = (int)reader["Age"];
+                var isPrisoner = (bool)reader["IsPrisoner"];
+                var service = reader["ServiceName"].ToString();
+
+                var user = new User(name, releaseDate, age, isPrisoner, service) { Id = id };
+
+                userWithServices.Add(user);
+            }
+
+            connection.Close();
+
+            return userWithServices;
+        }
     }
 }
