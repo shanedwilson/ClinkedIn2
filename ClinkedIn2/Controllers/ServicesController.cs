@@ -43,5 +43,29 @@ namespace ClinkedIn2.Controllers
 
             return Ok(services);
         }
+
+        [HttpDelete("{userId}")]
+        public ActionResult DeleteService(int userId)
+        {
+            _serviceRepository.DeleteService(userId);
+
+            return Ok();
+        }
+
+        [HttpPut("{userId}")]
+        public ActionResult UpdateService(int userId, UpdateServiceRequest updateServiceRequest)
+        {
+            if (updateServiceRequest == null)
+            {
+                return BadRequest(new { error = "Please provide necessary information" });
+            }
+            var updatedUser = _serviceRepository.UpdateService(
+                userId,
+                updateServiceRequest.Name,
+                updateServiceRequest.Description,
+                updateServiceRequest.Price);
+
+            return Ok();
+        }
     }
 }
