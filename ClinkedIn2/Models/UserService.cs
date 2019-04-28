@@ -16,5 +16,12 @@ namespace ClinkedIn2.Models
             UserId = userId;
             ServiceId = serviceId;
         }
+
+        public UserService(int id, int userId, int serviceId)
+        {
+            Id = id;
+            UserId = userId;
+            ServiceId = serviceId;
+        }
     }
 }

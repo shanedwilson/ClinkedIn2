@@ -70,5 +70,49 @@ namespace ClinkedIn2.Data
 
             return userServices;
         }
+
+        public void DeleteUserService(int userServiceId)
+        {
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var deleteUserServiceCommand = connection.CreateCommand();
+            deleteUserServiceCommand.Parameters.AddWithValue("Id", userServiceId);
+            deleteUserServiceCommand.CommandText = @"Delete
+                                                From UserServices
+                                                Where Id = @Id";
+
+            deleteUserServiceCommand.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public bool UpdateUserService(int id, int userId, int serviceId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var updateUserServiceCommand = connection.CreateCommand();
+
+                updateUserServiceCommand.Parameters.AddWithValue("@Id", id);
+
+                updateUserServiceCommand.CommandText = $@"Update userservices
+                                                            Set userId = @userId,
+                                                                serviceId = @serviceId
+                                                            Where Id = @Id";
+
+                updateUserServiceCommand.Parameters.AddWithValue("userId", userId);
+                updateUserServiceCommand.Parameters.AddWithValue("serviceId", serviceId);
+
+
+                var numberOfRowsUpdated = updateUserServiceCommand.ExecuteNonQuery();
+
+                connection.Close();
+
+                if (numberOfRowsUpdated > 0)
+                { return true; }
+                return false;
+            }
+        }
     }
 }
