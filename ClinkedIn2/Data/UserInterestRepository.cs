@@ -70,5 +70,49 @@ namespace ClinkedIn2.Data
 
             return userInterests;
         }
+
+        public void DeleteUserInterest(int userInterestId)
+        {
+            var connection = new SqlConnection(ConnectionString);
+            connection.Open();
+
+            var deleteUserInterestCommand = connection.CreateCommand();
+            deleteUserInterestCommand.Parameters.AddWithValue("Id", userInterestId);
+            deleteUserInterestCommand.CommandText = @"Delete
+                                                From UserInterests
+                                                Where Id = @Id";
+
+            deleteUserInterestCommand.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public bool UpdateUserInterest(int id, int userId, int interestId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var updateUserInterestCommand = connection.CreateCommand();
+
+                updateUserInterestCommand.Parameters.AddWithValue("@Id", id);
+
+                updateUserInterestCommand.CommandText = $@"Update userinterests
+                                                            Set userId = @userId,
+                                                                interestId = @interestId
+                                                            Where Id = @Id";
+
+                updateUserInterestCommand.Parameters.AddWithValue("userId", userId);
+                updateUserInterestCommand.Parameters.AddWithValue("interestId", interestId);
+
+
+                var numberOfRowsUpdated = updateUserInterestCommand.ExecuteNonQuery();
+
+                connection.Close();
+
+                if (numberOfRowsUpdated > 0)
+                { return true; }
+                return false;
+            }
+        }
     }
 }

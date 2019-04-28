@@ -16,5 +16,12 @@ namespace ClinkedIn2.Models
             UserId = userId;
             InterestId = interestId;
         }
+
+        public UserInterest(int id, int userId, int interestId)
+        {
+            Id = id;
+            UserId = userId;
+            InterestId = interestId;
+        }
     }
 }
